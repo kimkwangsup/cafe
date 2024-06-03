@@ -87,8 +87,8 @@
 				<div class="w3-blue-gray w3-btn w3-right w3-small" id="logout">로그아웃</div>
 			</c:if>
 		</div>
-		<form method="post" action="" id="frm" class="w3-col w3-margin-top">
-			<input type="hidden" name="nowPage" id="nowPage" value="${nowPage}">
+		<form method="post" action="/cafe/reboard/reboard.cafe" id="frm" class="w3-col w3-margin-top">
+			<input type="hidden" name="nowPage" id="nowPage" value="${DATA.nowPage}">
 			<c:if test="${DATA.regroup ne 0 }">
 				<input type="hidden" name="upno" value="${DATA.upno}">
 				<input type="hidden" name="regroup" value="${DATA.regroup}">

@@ -25,8 +25,24 @@
 <script type="text/javascript">
     $(document).ready(function(){
         // 비밀번호 관련 메세지 태그 숨김 처리
-        var pattern = /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%^*_\-+/])([a-zA-Z0-9!@#$%^*_\+/]{8,15})$/;
-        $('#pwmsg, #repwmsg').css('display', 'none');
+        $('#pw').change(function(){
+	        var spw = $(this).val();
+        	var pattern = /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%^*_\-+/])([a-zA-Z0-9!@#$%^*_\+/]{8,15})$/;
+	        if(pattern.test(spw)){
+	        	$('#pwmsg').removeClass('w3-text-red w3-text-blue').addClass('w3-text-blue');
+				$('#pwmsg').removeClass('w3-hide');
+	        	$('#pwmsg').html('사용할 수 있는 비밀번호 입니다.');
+	        }else{
+	        	$('#pwmsg').removeClass('w3-text-red w3-text-blue').addClass('w3-text-red');
+				$('#pwmsg').removeClass('w3-hide');
+	        	$('#pwmsg').html('형식에 맞지 않는 비밀번호 입니다.');
+	        	
+	        }
+        });
+       
+        
+        
+        
         $('#mAvt, #fAvt').css('display','none');
 
         // 이메일 유효성 검사
@@ -38,6 +54,18 @@
         // 전화번호 유효성 검사
         $('#tel').change(function(){
             // 전화번호 유효성 검사 코드 여기에 작성
+            var pattern = /^010-([0-9]{4})-([0-9]{4})$/;
+           	var stel = $(this).val();
+           	if(pattern.test(stel)){
+           		$('#tellmsg').removeClass('w3-text-red w3-text-blue').addClass('w3-text-blue');
+				$('#tellmsg').removeClass('w3-hide');
+	        	$('#tellmsg').html('전화번호 형식에 맞습니다.');
+           	}else{
+           		$('#tellmsg').removeClass('w3-text-red w3-text-blue').addClass('w3-text-red');
+				$('#tellmsg').removeClass('w3-hide');
+	        	$('#tellmsg').html('전화번호 형식에 맞지않 습니다.');
+           	}
+            
         });
 
         // 성별 체크 이벤트
@@ -136,7 +164,19 @@
 
             $('#frm').submit();
         });
-
+		$('#repw').change(function(){
+			var spw = $('#pw').val();
+			var respw = $(this).val();
+			if(spw != respw){
+				$('#repwmsg').html('비밀번호가 일치하지 않습니다.');
+				$('#repwmsg').removeClass('w3-text-red w3-text-blue').addClass('w3-text-red');
+				$('#repwmsg').removeClass('w3-hide');
+			}else{
+				$('#repwmsg').html('비밀번호가 일치합니다.');
+				$('#repwmsg').removeClass('w3-text-red w3-text-blue').addClass('w3-text-blue');
+				$('#repwmsg').removeClass('w3-hide');
+			}
+		});
         $('#reset').click(function(){
             document.frm.reset();
         });
@@ -180,7 +220,7 @@
                     <input type="password" name="repw" id="repw" 
                             placeholder="비밀번호를 확인해주세요."
                             class="w3-col w3-input w3-border">
-                    <small class="w3-col" id="repwmsg"></small>
+                    <small class="w3-col w3-hide" id="repwmsg"></small>
                 </div>
             </div>
             <div class="w3-col w3-padding">
@@ -195,6 +235,7 @@
                 <input type="text" name="tel" id="tel" 
                         placeholder="전화번호를 입력하세요."
                         class="w3-col m8 w3-input w3-border">
+                <small class="w3-col" id="tellmsg"></small>
             </div>
             <div class="w3-col w3-padding">
                 <label class="w3-col m3 lbl w3-text-gray w3-right-align">성 별 : </label>

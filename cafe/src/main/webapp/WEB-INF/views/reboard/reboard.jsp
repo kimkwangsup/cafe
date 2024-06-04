@@ -84,7 +84,7 @@
 		</h1>
 		<div class="w3-col">
 			<c:if test="${not empty SID}">
-				<div class="w3-small w3-btn w3-gray w3-right" id="logout">로그아웃</div>	
+				<div class="w3-small w3-btn w3-Deep-Sky-Blue w3-right" id="logout">로그아웃</div>	
 				<div class="w3-small w3-btn w3-blue-gray w3-left" id="reWrite">댓글쓰기</div>	
 			</c:if>
 			<c:if test="${empty SID}">

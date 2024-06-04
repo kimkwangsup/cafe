@@ -50,11 +50,12 @@
 			$(location).attr('href', '/cafe/member/join.cafe');
 		});
 		
-		// reset 버튼 클릭이벤트
 		$('#reset').click(function(){
-			$('#body').val('');
+			document.frm.reset();
 		});
+		
 		$('#list').click(function(){
+			$('#frm').attr('action', '/cafe/reboard/reboard.cafe');
 			$('#frm').submit();
 		});
 		$('#write').click(function(){
@@ -63,13 +64,7 @@
 				$('#body').focus();
 				return;
 			}
-			
-			var el = document.createElement('input');
-			$(el).attr('type', 'hidden');
-			$(el).attr('name', 'body');
-			$(el).val(sbody);
-			$('#frm').append(el);
-			$('#frm').attr('action', '/cafe/reboard/reboardWriteProc.cafe');
+			$('#frm').attr('action', '/reboard/reboardProc.cafe');
 			$('#frm').submit();
 		});
 	});
@@ -87,7 +82,7 @@
 				<div class="w3-blue-gray w3-btn w3-right w3-small" id="logout">로그아웃</div>
 			</c:if>
 		</div>
-		<form method="post" action="/cafe/reboard/reboard.cafe" id="frm" class="w3-col w3-margin-top">
+		<form method="post" action="" id="frm" name="frm" class="w3-col w3-margin-top">
 			<input type="hidden" name="nowPage" id="nowPage" value="${DATA.nowPage}">
 			<c:if test="${DATA.regroup ne 0 }">
 				<input type="hidden" name="upno" value="${DATA.upno}">
@@ -95,16 +90,16 @@
 			</c:if>
 			<div class="w3-container w3-padding w3-margin-bottom w3-card-4" style="padding: 15px 20px!important;">
 				<div class="w3-col">
-					<label class="w3-col m2 lbl w3-right-align">작성자 :</label>
+					<label class="w3-col m2 lbl w3-right-align w3-text-gray">작성자 :</label>
 					<input type="text" name="id" value="${SID}" class="w3-col m9 w3-input" readonly>
 				</div>
 				<div class="w3-col">
-					<label for="body" class="w3-col m2 lbl w3-right-align">내  용 : </label>
+					<label for="body" class="w3-col m2 lbl w3-right-align w3-text-gray">내  용 : </label>
 				</div>
 				<div class="w3-col">
 					<div class="w3-col m2"><p> &nbsp;</p></div>
 					<div class="w3-col m9">
-						<textarea name="body" id="body" class="w3-input w3-border w3-col" rows="5" style="resize: none;" placeholder="인사글을 작성하세요!"></textarea>
+						<textarea name="body" id="body" class="w3-input w3-border w3-col w3-margin-bottom" rows="5" style="resize: none;" placeholder="댓글을 작성하세요."></textarea>
 					</div>
 				</div>
 			</div>

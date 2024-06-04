@@ -66,7 +66,7 @@
 	<form method="POST" id="frm">
 	</form>
 	
-	<div class="w3-content mxw650 w3-center">
+	<div class="w3-content mxw700 w3-center">
 		<h1 class="w3-light-gray w3-padding w3-card-4 w3-round-large">
 			Cafe 
 			메인

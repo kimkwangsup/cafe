@@ -25,6 +25,7 @@ import com.human.cafe.vo.ReboardVO;
 public class Reboard {
 	@RequestMapping("/reboard.cafe")
 	public ModelAndView reboardList(HttpSession session, ModelAndView mv, RedirectView rv, PageUtil page) {
+		mv.addObject("PAGE", page);
 		mv.setViewName("reboard/reboard"); 
 		return mv;
 	}

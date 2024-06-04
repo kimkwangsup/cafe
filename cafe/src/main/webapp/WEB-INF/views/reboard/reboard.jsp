@@ -35,18 +35,23 @@
 			$(location).attr('href', '/cafe/member/join.cafe');
 		});
 		$('#reWrite').click(function(){
-			$(location).attr('href', '/cafe/reboard/reboardWrite.cafe');
+			var path = '/cafe/reboard/reboardWrite.cafe';
+			$('#frm').attr('action', path);
+			$('#frm').submit();
 		});
 		
 	});
 </script>
 </head>
 <body>
+	<form method="POST" id="frm" name="frm">
+		<input type="hidden" name="nowPage" value="${PAGE.nowPage }">
+	</form>
 	<div class="w3-content mxw700">
 		<h1 class="w3-col w3-dark-gray w3-padding w3-card-4 w3-center w3-round-large w3-btn" id="home">댓글 게시판</h1>
 		<div class="w3-col">
 			<c:if test="${not empty SID}">
-				<div class="w3-small w3-btn w3-gray w3-left" id="logout">로그아웃</div>	
+				<div class="w3-small w3-btn w3-gray w3-right" id="logout">로그아웃</div>	
 				<div class="w3-small w3-btn w3-blue-gray w3-left" id="reWrite">댓글쓰기</div>	
 			</c:if>
 			<c:if test="${empty SID}">
@@ -55,33 +60,64 @@
 			</c:if>
 		</div>
 		<!-- 게시글 태그 -->
-		<div class="w3-col w3-margin-top">
-			<c:forEach var="DATA" items="${LIST}">
-				<div class="w3-col w3-margin-top"  style="padding-left: ${(DATA.level - 1) * 50}px;">
-					<div class="w3-col w3-card-4">
-						<div class="w3-col" style="width: 100px;">
-							<div class="w3-col imgBox2 pd10">
-								<img src="/cafe/avatar/img_avatar22.png" class="w3-col w3-circle img80">
+		<c:if test="${not empty LIST }">
+			<div class="w3-col w3-margin-top">
+				<c:forEach var="DATA" items="${LIST}">
+					<div class="w3-col w3-margin-top"  style="padding-left: ${(DATA.level - 1) * 50}px;">
+						<div class="w3-col w3-card-4">
+							<div class="w3-col" style="width: 100px;">
+								<div class="w3-col imgBox2 pd10">
+									<img src="/cafe/avatar/img_avatar22.png" class="w3-col w3-circle img80">
+								</div>
+								<h6 class="w3-col w3-center mgh0">${DATA.id}</h6>
 							</div>
-							<h6 class="w3-col w3-center mgh0">${DATA.id}</h6>
-						</div>
-						<div class="w3-rest pd10">
-							<div class="w3-col w3-border-bottom" style="padding-bottom: 3px;">
-								<p class="w3-left mgh0" style="font-size: 9pt;">작성일 : ${DATA.sdate}</p>
-								<p class="w3-right mgh0" style="font-size: 9pt;"><i class="fa fa-heart"></i> 좋아요 : ${DATA.goods}</p>
-							</div>
-							<div class="w3-col w3-padding">
-								<pre class="contentBox" style="margin: 0px;">${DATA.body}</pre>
-							</div>
-							<div class="w3-col">
-								<div class="w3-btn w3-tiny w3-orange w3-left" id="d${DATA.bno}">글삭제</div>
-								<div class="w3-btn w3-tiny w3-pink w3-right" id="r${DATA.bno}">댓글쓰기</div>
+							<div class="w3-rest pd10">
+								<div class="w3-col w3-border-bottom" style="padding-bottom: 3px;">
+									<p class="w3-left mgh0" style="font-size: 9pt;">작성일 : ${DATA.sdate}</p>
+									<p class="w3-right mgh0" style="font-size: 9pt;"><i class="fa fa-heart"></i> 좋아요 : ${DATA.goods}</p>
+								</div>
+								<div class="w3-col w3-padding">
+									<pre class="contentBox" style="margin: 0px;">${DATA.body}</pre>
+								</div>
+								<div class="w3-col">
+									<div class="w3-btn w3-tiny w3-orange w3-left" id="d${DATA.bno}">글삭제</div>
+									<div class="w3-btn w3-tiny w3-pink w3-right" id="r${DATA.bno}">댓글쓰기</div>
+								</div>
 							</div>
 						</div>
 					</div>
+				</c:forEach>
+			</div>
+			<div class="w3-col w3-center w3-margin-top">
+				<div class="w3-bar w3-round">
+					<c:if test="${PAGE.startPage eq 1}">
+						<span class="w3-bar-item w3-light-gray" id="${PAGE.startPage - 1}" >&laquo;</span>
+					</c:if>
+					<c:if test="${PAGE.startPage ne 1}">
+						<span class="w3-bar-item w3-button w3-light-gray w3-hover-blue-gray pageBtn" id="${PAGE.startPage - 1}" >&laquo;</span>
+					</c:if>
+					<c:forEach var="pno" begin="${PAGE.startPage}" end="${PAGE.endPage}">
+						<c:if test="${PAGE.nowPage eq pno}">
+									<span class="w3-bar-item pageBtn w3-pink" id="${pno}">${pno}</span>
+						</c:if>
+						<c:if test="${PAGE.nowPage ne pno}">
+							<span class="w3-bar-item w3-button pageBtn" id="${pno}">${pno}</span>
+						</c:if>
+					</c:forEach>
+					<c:if test="${PAGE.endPage ne PAGE.totalPage}">
+						<span class="w3-bar-item w3-button w3-light-gray w3-hover-blue-gray pageBtn" id="${PAGE.endPage + 1}">&raquo;</span>
+					</c:if>
+					<c:if test="${PAGE.endPage eq PAGE.totalPage}">
+						<span class="w3-bar-item w3-light-gray">&raquo;</span>
+					</c:if>
 				</div>
-			</c:forEach>
-		</div>
+			</div>
+		</c:if>
+		<c:if test="${empty LIST }">
+			<div class="w3-col w3-margin-top">
+				<h2 class="w3-center w3-text-gray w3-border-bottom">▶ 아직 작성된 글이 없습니다. ◀</h2>
+			</div>
+		</c:if>
 	</div>
 </body>
 </html>

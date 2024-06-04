@@ -185,7 +185,7 @@
 
 </head>
 <body>
-    <div class="w3-content mxw650 w3-center " id="mainFr">
+    <div class="w3-content mxw700 w3-center " id="mainFr">
         <h1 class="w3-btn w3-col w3-gray w3-padding w3-card-4 w3-round-large w3-col" id="home">회원가입</h1>
         <form method="get" action="/cafe/member/joinProc.cafe" name="frm" id="frm" 
                 class="w3-col w3-light-grey mgt20 w3-card-4 w3-padding pdh30">

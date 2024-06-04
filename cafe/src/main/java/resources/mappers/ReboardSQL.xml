@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+	PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="rSQL">
+	<insert id="addBoard" parameterType="rVO">
+		<selectKey keyProperty="bno" resultType="int" order="BEFORE">
+			select rebrdSeq.nextval from dual
+		</selectKey>
+		insert into
+		    reboard(rebno, writer, body, reupno, regroup, relevel
+		values(
+		    #{bno}, #{id}, #{body}, #{upno}||#{bno}, 
+		<if test="regroup eq 0">
+		    #{bno},
+		</if>
+		<if test="regroup neq 0">
+		    #{regroup},
+		</if>
+		    #{level + 1}
+		)
+	</insert>
+</mapper>

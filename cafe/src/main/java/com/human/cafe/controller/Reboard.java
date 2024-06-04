@@ -65,11 +65,16 @@ public class Reboard {
 		int cnt = rDao.addBoard(rVO);
 		String path = "";
 		if(cnt == 1) {
-			path = "/cafe/reboard/reboard.cafe?nowPage=" + rVO.getNowPage();
+			path = "/cafe/reboard/reboard.cafe";
 		}else {
-			path = "/cafe/reboard/reboardWrite.cafe?nowPage=" + rVO.getNowPage();
+			if(rVO.getLevel() == 0) {
+				path = "/cafe/reboard/reboardWrite.cafe";
+			}else {
+				path = "/cafe/reboard/reboardRewrite.cafe";
+				mv.addObject("BNO", rVO.getBno());
+			}
 		}
-		mv.addObject("DATA", rVO);
+		mv.addObject("nowPage", rVO.getNowPage());
 		mv.addObject("PATH", path);
 		mv.setViewName("redirect");
 		return mv;
@@ -84,4 +89,13 @@ public class Reboard {
 		mv.setViewName("redirect");
 		return mv;
 	}
+	@RequestMapping("/addGood.cafe")
+	public ModelAndView addGood(HttpSession session, ModelAndView mv, RedirectView rv, ReboardVO rVO) {
+		rDao.addGood(rVO.getBno());
+		mv.addObject("PATH", "/cafe/reboard/reboard.cafe");
+		mv.addObject("nowPage", rVO.getNowPage());
+		mv.setViewName("redirect");
+		return mv;
+	}
+	
 }

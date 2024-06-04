@@ -42,5 +42,11 @@ public class ReboardDao {
 	public int delReboard(ReboardVO rVO) {
 		return session.update("rSQL.delReboard", rVO);
 	}
+	/**
+	 * 좋아요 추가 전담 처리함수
+	 */
+	public int addGood(int bno) {
+		return session.update("rSQL.addGood", bno);
+	}
 	
 }

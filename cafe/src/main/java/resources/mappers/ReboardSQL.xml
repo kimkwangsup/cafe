@@ -94,4 +94,12 @@
 		where
 		    reupno LIKE '%' || #{bno} || '%'
 	</update>
+	<update id="addGood" parameterType="int">
+		update
+		    reboard
+		set
+		    goods = goods + 1
+		where
+		    rebno = #{bno}
+	</update>
 </mapper>

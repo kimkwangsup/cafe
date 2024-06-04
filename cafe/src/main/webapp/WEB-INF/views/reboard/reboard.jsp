@@ -18,7 +18,10 @@
             background-position: center;
             background-repeat: no-repeat; /* 이미지가 반복되지 않도록 설정 */
             height: 100vh; /* 뷰포트의 전체 높이를 설정 */
-	        }
+	        };
+	.goods{
+		cursor: pointer;
+	};
 </style>
 <script type="text/javascript">
 	$(document).ready(function(){
@@ -56,6 +59,12 @@
 			var sbno = $(this).attr('id').substring(1);
 			$('#frm').append('<input type="hidden" name="bno" value="'+ sbno +'">');
 			$('#frm').attr('action', '/cafe/reboard/reboardRewrite.cafe');
+			$('#frm').submit();
+		});
+		$('.goods').click(function(){
+			var sbno = $(this).attr('id').substring(1);
+			$('#frm').append('<input type="hidden" name="bno" value="'+ sbno +'">');
+			$('#frm').attr('action', '/cafe/reboard/addGood.cafe');
 			$('#frm').submit();
 		});
 	});
@@ -98,7 +107,7 @@
 							<div class="w3-rest pd10">
 								<div class="w3-col w3-border-bottom" style="padding-bottom: 3px;">
 									<p class="w3-left mgh0" style="font-size: 9pt;">작성일 : ${DATA.sdate}</p>
-									<p class="w3-right mgh0" style="font-size: 9pt;"><i class="w3-text-red fa fa-heart"></i> 좋아요 : ${DATA.goods}</p>
+									<p class="w3-right mgh0" style="font-size: 9pt;"><i class="w3-text-red fa fa-heart goods" id='g${DATA.bno}' style="cursor: pointer;"></i> 좋아요 : ${DATA.goods}</p>
 								</div>
 								<div class="w3-col w3-padding">
 									<pre class="contentBox" style="margin: 0px;">${DATA.body}</pre>

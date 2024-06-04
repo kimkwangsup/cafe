@@ -79,6 +79,30 @@
 처리함수 :	reboardWrite()
 응답문서 :	/WEB-INF/views/reboard/reboardWrite.jsp
 
+# 댓글 게시판 댓글쓰기 폼보기 요청
+요청내용 :	/cafe/reboard/reboardRewrite.cafe
+파라미터 :	nowPage, bno
+컨트롤러 :	com.human.cafe.controller.Reboard
+처리함수 :	reboardRewrite()
+응답문서 :	/WEB-INF/views/reboard/reboardWrite.jsp
+
+# 댓글 게시판 글 등록 요청
+요청내용 :	/cafe/reboard/reboardWriteProc.cafe
+파라미터 :	nowPage, id, body, [, regroup, upno, level]
+컨트롤러 :	com.human.cafe.controller.Reboard
+처리함수 :	reboardWriteProc()
+응답문서 :	redirect ]
+					성공 : /cafe/reboard/reboard.cafe
+					실패 : /cafe/reboard/reboardWrite.cafe
+
+# 게시글 삭제 요청
+요청내용 :	/cafe/reboard/delReboard.cafe
+파라미터 :	nowPage, bno
+컨트롤러 :	com.human.cafe.controller.Reboard
+처리함수 :	delReboard()
+응답문서 :	redirect ]
+					성공 : /cafe/reboard/reboard.cafe
+					
 
 --------------------------------------------------------------------------------------------------
 요청내용 :	

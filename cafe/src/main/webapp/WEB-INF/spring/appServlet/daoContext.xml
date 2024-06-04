@@ -9,5 +9,6 @@
 	-->
 	<bean id="page" class="com.human.cafe.util.PageUtil" /> 
 	<bean id="mDao" class="com.human.cafe.dao.MemberDao" />
+	<bean id="rDao" class="com.human.cafe.dao.ReboardDao" />
 	
 </beans>

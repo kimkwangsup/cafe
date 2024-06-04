@@ -3,21 +3,95 @@
 	PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="rSQL">
+	<select id="getTotal" resultType="int">
+		select 
+			count(*) 
+		from 
+			reboard 
+		where 
+			reisshow = 'Y'
+	</select>
+	
+	<select id="getList" resultType="rVO" parameterType="page">
+		select
+		    rno, bno, id, body, wdate, goods, upno, regroup, "level", savename
+		from
+		    (
+		        select
+		            rownum rno, bno, id, body, wdate, goods, upno, regroup, "level", savename
+		        from
+		            (
+		                select 
+		                    rebno bno, writer id, body, wdate, goods, reupno upno, regroup, relevel "level", filename savename
+		                from 
+		                    reboard , member m, avatar a
+		                where 
+		                    reisshow = 'Y'
+		                    AND id = writer
+		                    AND m.avatar = a.ano
+		                order by
+		                    regroup desc, upno
+		            )
+		    )
+		where
+		    rno between #{startRno} and #{endRno}
+	</select>
+	
+	<select id="upContent" resultType="rVO" parameterType="int">
+		select
+			rebno bno, reupno upno, regroup, relevel "level"
+		from
+			reboard
+		where
+			rebno = #{bno}
+	</select>
+	
+	
 	<insert id="addBoard" parameterType="rVO">
 		<selectKey keyProperty="bno" resultType="int" order="BEFORE">
-			select rebrdSeq.nextval from dual
+			select 
+				rebrdSeq.nextval 
+			from 
+				dual
 		</selectKey>
 		insert into
-		    reboard(rebno, writer, body, reupno, regroup, relevel
+		    reboard(rebno, writer, body, reupno, regroup, relevel)
 		values(
-		    #{bno}, #{id}, #{body}, #{upno}||#{bno}, 
-		<if test="regroup eq 0">
-		    #{bno},
-		</if>
-		<if test="regroup neq 0">
-		    #{regroup},
-		</if>
-		    #{level + 1}
+		    #{bno}, #{id}, #{body}, 
+			<if test="upno neq null">
+			    #{upno}||'#'||#{bno}, 
+			</if>
+			<if test="upno eq null">
+			    '#'||#{bno}, 
+			</if>
+			<if test="regroup eq 0">
+			    #{bno},
+			</if>
+			<if test="regroup neq 0">
+			    #{regroup},
+			</if>
+	    	#{level} + 1
 		)
 	</insert>
+	<insert id="addReboard" parameterType="rVO">
+		<selectKey keyProperty="bno" resultType="int" order="BEFORE">
+			select rebrdseq.nextval from dual 
+		</selectKey>
+		insert into
+			reboard(rebno, writer, body, reupno, regroup, relevel)
+		select
+			#{bno}, #{id}, #{body}, reupno || '#' || #{bno}, regroup, relevel +  1
+		from
+			reboard	
+		where
+			rebno = #{upBno}
+	</insert>
+	<update id="delReboard" parameterType="rVO">
+		update
+		    reboard
+		set
+		    reisshow = 'N'
+		where
+		    reupno LIKE '%' || #{bno} || '%'
+	</update>
 </mapper>

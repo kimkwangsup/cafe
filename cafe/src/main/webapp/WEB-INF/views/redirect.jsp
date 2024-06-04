@@ -5,9 +5,9 @@
 <head>
 <title></title>
 <meta charset="UTF-8">
-<link rel="stylesheet" type="text/css" href="/css/w3.css">
-<link rel="stylesheet" type="text/css" href="/css/user.css">
-<script type="text/javascript" src="/js/jquery-3.7.1.min.js"></script>
+<link rel="stylesheet" type="text/css" href="/cafe/css/w3.css">
+<link rel="stylesheet" type="text/css" href="/cafe/css/user.css">
+<script type="text/javascript" src="/cafe/js/jquery-3.7.1.min.js"></script>
 <style type="text/css">
 
 </style>
@@ -18,19 +18,19 @@
 </script>
 </head>
 <body>
-	<form method="POST" action="${PATH}" id="frm">
-<c:if test="${not empty BNO}">
-		<input type="hidden" name="bno" value="${BNO}">
-</c:if>
-<c:if test="${not empty nowPage}">
-		<input type="hidden" name="nowPage" value="${nowPage}">
-</c:if>
-<c:if test="${not empty RESULT}">
-		<input type="hidden" name="RESULT" value="${RESULT}">
-</c:if>
-<c:if test="${not empty TPNO}">
-		<input type="hidden" name="tpno" value="${TPNO}">
-</c:if>
+	<form method="POST" action="${PATH}" id="frm"> 
+		<c:if test="${not empty BNO}">
+			<input type="hidden" name="bno" value="${BNO}">
+		</c:if>
+		<c:if test="${not empty nowPage}">
+			<input type="hidden" name="nowPage" value="${nowPage}">
+		</c:if>
+		<c:if test="${not empty RESULT}">
+			<input type="hidden" name="RESULT" value="${RESULT}">
+		</c:if>
+		<c:if test="${not empty TPNO}">
+			<input type="hidden" name="tpno" value="${TPNO}">
+		</c:if>
 	</form>
 </body>
 </html>

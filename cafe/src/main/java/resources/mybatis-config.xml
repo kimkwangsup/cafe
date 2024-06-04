@@ -27,6 +27,7 @@
 	<typeAliases>
 		<typeAlias alias="mVO" type="com.human.cafe.vo.MemberVO"/>
 		<typeAlias alias="rVO" type="com.human.cafe.vo.ReboardVO"/>
+		<typeAlias alias="page" type="com.human.cafe.util.PageUtil"/>
 	</typeAliases>
 	
 	<!--  
